@@ -29,7 +29,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "ldapjs": "^1.0.0",
+    "activedirectory": "^0.7.2",
     "mongodb": "^2.1.16",
     "mongoose": "^4.4.12",
     "react": "^15.0.1",

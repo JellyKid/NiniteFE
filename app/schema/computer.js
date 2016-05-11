@@ -8,6 +8,4 @@ var schema = new mongoose.Schema({
   apps: Array
 });
 
-
-
 module.exports = mongoose.model('Computer', schema);
