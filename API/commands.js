@@ -77,5 +77,6 @@ function run(switches) {
   });
 }
 
-
-console.log(audit(['js-msi']).then((results) => {console.log(results);}));
+module.exports = {
+  audit: audit
+};

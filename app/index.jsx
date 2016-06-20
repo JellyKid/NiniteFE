@@ -1,38 +1,25 @@
-import db from "./schema";
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider , connect} from 'react-redux';
+import { findADComputers, updateFoundComputers } from './actions';
 
-var Computer = React.createClass({
-  render: function(){
-    return (
-      <div className="computerBox">
-        {this.props.name}
-      </div>
-    );
-  }
-});
+import App from './components/App';
 
-var ComputerList = React.createClass({
-  render: function(){
-    return db.Computer.find(function(err,found){
-      if(err){
-        return (
-          <div className="error">
-            {err}
-          </div>
-        );
-      }
-      let list = [];
-      for (var i = 0; i < found.length; i++) {
-        list.push(
-          <Computer name={found[i].name} />
-        );
-      }
-    });
-  }
-});
+import makeStore from './store';
+const store = makeStore();
 
-ReactDOM.render(
-  <Computer />,
+import io from 'socket.io-client';
+const socket = io('http://127.0.0.1:8090');
+
+socket.on('found', found =>
+  store.dispatch(updateFoundComputers(found))
+);
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('app')
 );
+
+store.dispatch(findADComputers(socket));

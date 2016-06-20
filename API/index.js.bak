@@ -1,0 +1,39 @@
+import {session} from './AD';
+import express from 'express';
+
+const config = {
+  url: 'ldap://bpr620.bpsb.local',
+  baseDN: 'dc=bpsb,dc=local',
+  username: 'jpublic@bpsb.local',
+  password: 'Password1'
+};
+
+const server = {
+  port: 80,
+  host: '127.0.0.1'
+};
+
+const app = express();
+let ad = session(config);
+
+app.get('/', function(req, res){
+  res.send('hello world');
+});
+
+app.get('/ad',(req,res) => {
+  res.send(ad);
+});
+
+app.get('/ad/:command', (req,res) => {
+  switch (req.params.command) {
+    case 'computers':
+      ad.getComputers().then((computers) => {res.send(computers);});
+      break;
+    default:
+      res.send('Param not found');
+  }
+});
+
+app.listen(server.port, server.host, () => console.log('Server up ' + server.host + ':'+ server.port));
+
+export default app;

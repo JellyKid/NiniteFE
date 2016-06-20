@@ -1,3 +1,5 @@
+const siteTitle = 'Ninite Pro FE';
+
 import path from "path";
 import npmInstallPlugin from "npm-install-webpack-plugin";
 import webpack from "webpack";
@@ -6,11 +8,9 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import _ from "lodash";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 
-var db = require('./db');
-
 const pkg = require('./package.json');
 
-var TARGET = process.env.NODE_ENV;
+var TARGET = process.env.npm_lifecycle_event;
 
 const PATHS = {
   app: path.join(__dirname,'app'),
@@ -38,7 +38,8 @@ var common = {
       },
       {
         test: /\.json$/,
-        loaders: ['json-loader']
+        loaders: ['json-loader'],
+        include: PATHS.app
       }
     ]
 
@@ -48,8 +49,8 @@ var common = {
       save: true // --save
     }),
     new HtmlWebpackPlugin({
-      template: 'node_modules/html-webpack-template/index.ejs',
-      title: 'Ninite GUI',
+      template: 'node_modules\\html-webpack-template\\index.ejs',
+      title: siteTitle,
       appMountId: 'app',
       inject: false
     })
@@ -74,6 +75,11 @@ var dev = {
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
+        include: PATHS.app
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        loaders: ['file-loader'],
         include: PATHS.app
       }
     ]
@@ -110,6 +116,10 @@ var build = {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract('style', 'css'),
           include: PATHS.app
+        },
+        {
+          test: /\.png$/,
+          loaders: ['file-loader']
         }
       ]
     }
@@ -126,8 +136,7 @@ if(TARGET === 'build'){
   module.exports = _.mergeWith({},common,build,arrayConcat);
 }
 
-if(TARGET === 'test'){
+if(TARGET === 'start'){
   var test = _.mergeWith({},common,dev,arrayConcat);
-  console.log(test.module.loaders);
   module.exports = _.mergeWith({},common,dev,arrayConcat);
 }
