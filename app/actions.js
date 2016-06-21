@@ -1,5 +1,3 @@
-import { findADComputersAsync } from './async';
-
 //Sync actions (Pure Functions, same in same out)
 export const ADD_COMPUTER = 'ADD_COMPUTER';
 export function addComputer(computer) {
@@ -41,15 +39,20 @@ export function updateFoundComputers(list) {
   };
 }
 
-//Logging for async actions
-export function logAsyncAction(type){
+export const LOG_CONSOLE = 'LOG_CONSOLE';
+export function logConsole(log){
   return {
-    type: type
+    type: LOG_CONSOLE,
+    log: log
   };
 }
 
-//async actions
-export const FIND_AD_COMPUTERS = 'FIND_AD_COMPUTERS';
-export function findADComputers(socket) {
-  return findADComputersAsync(socket, FIND_AD_COMPUTERS);
+//sagas
+
+export const SAVE_SETTINGS = 'SAVE_SETTINGS';
+export function saveSettings(settings){
+  return {
+    type: SAVE_SETTINGS,
+    settings: settings
+  };
 }

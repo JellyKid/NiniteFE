@@ -1,0 +1,2 @@
+export const SAVE_STATE_TO_DB = 'SAVE_STATE_TO_DB';
+export const SAVE_SETTINGS_TO_DB = 'SAVE_SETTINGS_TO_DB';

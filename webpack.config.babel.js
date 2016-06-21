@@ -20,7 +20,7 @@ const PATHS = {
 
 var common = {
   entry: {
-    app: PATHS.app
+    app: ['babel-polyfill', PATHS.app]
   },
   resolve:{
     extensions: ['','.js','.jsx']
