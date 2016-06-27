@@ -1,9 +1,14 @@
 import React from 'react';
-import FoundList from './FoundList';
-import Settings from './Settings';
+import { connect } from 'react-redux';
+import AddFromAD from './AddFromAD';
+import '../style/bootstrap.css';
+import '../style/windows.css';
+import '../style/fontAwesome.css';
 
-export default class App extends React.Component {
+class App extends React.Component {
   render(){
-    return <Settings />;
+    return <AddFromAD />;
   }
 }
+
+export default App;

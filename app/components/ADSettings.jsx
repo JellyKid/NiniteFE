@@ -29,7 +29,7 @@ class Settings extends React.Component {
 
   }
   render() {
-    return <div className="Settings">
+    return <div className="ADSettings">
       <form onSubmit={this.handleClickOK}>
         <h2>ActiveDirectory Settings</h2>
         <FormGroup controlId="ADSettings">
